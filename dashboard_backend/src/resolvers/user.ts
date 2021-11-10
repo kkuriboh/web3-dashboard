@@ -35,6 +35,12 @@ export class userInput {
 
 @Resolver(User)
 export class userResolver {
+	@Query(() => [User], { nullable: true })
+	async getUsers() {
+		const users = await User.find()
+		return users
+	}
+
 	@Query(() => User, { nullable: true })
 	async getUserById(@Arg('id') id: number) {
 		const user = await User.findOne(id)

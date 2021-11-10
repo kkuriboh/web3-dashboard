@@ -1,11 +1,13 @@
 import 'reflect-metadata'
 import express from 'express'
 import { ApolloServer } from 'apollo-server-express'
-import { userResolver } from './resolvers/user'
 import { buildSchema } from 'type-graphql'
 import { createConnection } from 'typeorm'
+import cors from 'cors'
+
 import { User } from './entities/User'
 import Game from './entities/Game'
+import { userResolver } from './resolvers/user'
 import { gameResolver } from './resolvers/game'
 
 async function main() {
@@ -16,6 +18,19 @@ async function main() {
 		synchronize: true,
 		entities: [User, Game],
 	})
+
+	const app = express()
+
+	app.use(
+		cors({
+			origin: [
+				'http://localhost:3000',
+				'https://studio.apollographql.com',
+			],
+			credentials: true,
+		})
+	)
+
 	const server = new ApolloServer({
 		schema: await buildSchema({
 			resolvers: [userResolver, gameResolver],
@@ -27,9 +42,9 @@ async function main() {
 		}),
 	})
 
-	const app = express()
 	await server.start()
-	server.applyMiddleware({ app })
+
+	server.applyMiddleware({ app, cors: false })
 
 	app.listen({ port: 4000 }, () => {
 		console.log(

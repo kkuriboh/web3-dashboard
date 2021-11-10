@@ -10,7 +10,7 @@ import {
 @ObjectType()
 @Entity()
 export default class Game extends BaseEntity {
-	@Field(() => Int)
+	@Field()
 	@PrimaryGeneratedColumn()
 	id!: number
 

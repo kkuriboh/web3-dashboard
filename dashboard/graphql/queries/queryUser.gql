@@ -1,0 +1,9 @@
+query GetUserById($getUserByIdId: Float!) {
+	getUserById(id: $getUserByIdId) {
+		id
+		name
+		email
+		createdAt
+		updatedAt
+	}
+}
