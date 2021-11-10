@@ -59,16 +59,12 @@ const Home: NextPage = () => {
 							placeholder="password"
 							type="password"
 						/>
-						<Select
-							mt={6}
-							label="Country"
+						<InputField
+							isSelect
 							name="country"
-							placeholder="Country"
-						>
-							<option value="Brazil">Brazil</option>
-							<option value="US">US</option>
-							<option value="CA">CA</option>
-						</Select>
+							label="Country"
+							placeholder="Wonderland"
+						/>
 						<Button mt={6} type="submit" isLoading={isSubmitting}>
 							register
 						</Button>

@@ -6,22 +6,7 @@ export function validateUserForm(params: userInput) {
 		/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
 
 	const emailParts = params.email.split('@')
-	if (!params.country) {
-		return [
-			{
-				field: 'country',
-				message: 'something went wrong',
-			},
-		]
-	}
-	if (!emailReg.test(params.email) || emailParts[0].length > 64) {
-		return [
-			{
-				field: 'email',
-				message: 'please insert a valid email',
-			},
-		]
-	}
+
 	if (!params.name) {
 		return [
 			{
@@ -37,11 +22,34 @@ export function validateUserForm(params: userInput) {
 			},
 		]
 	}
+	if (!emailReg.test(params.email) || emailParts[0].length > 64) {
+		return [
+			{
+				field: 'email',
+				message: 'please insert a valid email',
+			},
+		]
+	}
 	if (!params.password) {
 		return [
 			{
 				field: 'password',
 				message: 'please insert a valid password',
+			},
+		]
+	}
+	if (params.country === 'Wonderland') {
+		return [
+			{
+				field: 'country',
+				message: 'please select a valid country',
+			},
+		]
+	} else if (!params.country) {
+		return [
+			{
+				field: 'country',
+				message: 'something went wrong',
 			},
 		]
 	}

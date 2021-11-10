@@ -5,7 +5,7 @@ export default function Wrapper({ ...props }) {
 	return (
 		<Box
 			as="main"
-			maxW="800px"
+			maxW="600px"
 			mx="auto"
 			px={[4, 6, 8]}
 			py={[4, 6, 8]}
