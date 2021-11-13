@@ -1,4 +1,4 @@
-import { ObjectType, Field, Int } from 'type-graphql'
+import { ObjectType, Field } from 'type-graphql'
 import {
 	BaseEntity,
 	Entity,
@@ -35,4 +35,7 @@ export class User extends BaseEntity {
 	@Field(() => String)
 	@CreateDateColumn()
 	updatedAt: Date
+
+	@Column('int', { default: 0 })
+	tokenVersion: number
 }

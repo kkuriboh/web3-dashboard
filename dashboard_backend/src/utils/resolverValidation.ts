@@ -1,10 +1,10 @@
 import { gameInput } from '../resolvers/game'
 import { userInput } from '../resolvers/user'
 
-export function validateUserForm(params: userInput) {
-	const emailReg =
-		/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
+const emailReg =
+	/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
 
+export function validateRegisterForm(params: userInput) {
 	const emailParts = params.email.split('@')
 
 	if (!params.name) {
@@ -37,7 +37,15 @@ export function validateUserForm(params: userInput) {
 				message: 'please insert a valid password',
 			},
 		]
+	} else if (params.password.length < 8) {
+		return [
+			{
+				field: 'password',
+				message: 'your password is too short',
+			},
+		]
 	}
+
 	if (params.country === 'Wonderland') {
 		return [
 			{
@@ -50,6 +58,34 @@ export function validateUserForm(params: userInput) {
 			{
 				field: 'country',
 				message: 'something went wrong',
+			},
+		]
+	}
+	return null
+}
+
+export function validateLogin(params: userInput) {
+	const emailParts = params.email.split('@')
+	if (!emailReg.test(params.email) || emailParts[0].length > 64) {
+		return [
+			{
+				field: 'email',
+				message: 'please insert a valid email',
+			},
+		]
+	}
+	if (!params.password) {
+		return [
+			{
+				field: 'password',
+				message: 'please insert a valid password',
+			},
+		]
+	} else if (params.password.length < 8) {
+		return [
+			{
+				field: 'password',
+				message: 'your password is too short',
 			},
 		]
 	}

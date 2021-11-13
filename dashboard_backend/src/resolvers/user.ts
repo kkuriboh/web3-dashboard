@@ -1,6 +1,7 @@
 import { User } from '../entities/User'
 import {
 	Arg,
+	Ctx,
 	Field,
 	InputType,
 	Mutation,
@@ -9,12 +10,30 @@ import {
 	Resolver,
 } from 'type-graphql'
 import { getConnection } from 'typeorm'
-import { validateUserForm } from '../utils/resolverValidation'
+import {
+	validateLogin,
+	validateRegisterForm,
+} from '../utils/resolverValidation'
 import FieldError from '../utils/Fielderror'
+import { MyContext } from '../types'
+import sendRefreshToken from '../utils/sendRefreshToken'
+import { createRefreshToken } from '../utils/auth'
 
 @ObjectType()
 class UserResponse {
 	@Field(() => User, { nullable: true })
+	user?: User
+
+	@Field(() => [FieldError], { nullable: true })
+	errors?: FieldError[]
+}
+
+@ObjectType()
+class LoginResponse {
+	@Field(() => String)
+	accessToken?: string
+
+	@Field(() => User)
 	user?: User
 
 	@Field(() => [FieldError], { nullable: true })
@@ -26,11 +45,11 @@ export class userInput {
 	@Field()
 	email: string
 	@Field()
-	name: string
+	name?: string
 	@Field()
 	password: string
 	@Field()
-	country: string
+	country?: string
 }
 
 @Resolver(User)
@@ -49,7 +68,7 @@ export class userResolver {
 
 	@Mutation(() => UserResponse)
 	async register(@Arg('options') options: userInput): Promise<UserResponse> {
-		const errors = validateUserForm(options)
+		const errors = validateRegisterForm(options)
 		if (errors) {
 			return { errors }
 		}
@@ -89,7 +108,7 @@ export class userResolver {
 		@Arg('id') id: number,
 		@Arg('options') options: userInput
 	): Promise<UserResponse> {
-		const errors = validateUserForm(options)
+		const errors = validateRegisterForm(options)
 		if (errors) {
 			return { errors }
 		}
@@ -122,6 +141,43 @@ export class userResolver {
 			}
 		}
 		return { user }
+	}
+
+	@Mutation(() => LoginResponse)
+	async login(
+		@Arg('email') email: string,
+		@Arg('password') password: string,
+		@Ctx() { res }: MyContext
+	): Promise<LoginResponse> {
+		const user = await User.findOne({ where: { email } })
+		if (!user) {
+			return {
+				errors: [
+					{
+						field: 'email',
+						message: "user doesn't exist",
+					},
+				],
+			}
+		}
+		const errors = validateLogin({ email, password })
+		if (errors) {
+			return { errors }
+		}
+
+		sendRefreshToken(res, createRefreshToken(user))
+
+		return {
+			accessToken: createRefreshToken(user),
+			user,
+		}
+	}
+
+	@Mutation(() => Boolean)
+	async logout(@Ctx() { res }: MyContext) {
+		sendRefreshToken(res, '')
+
+		return true
 	}
 
 	@Mutation(() => Boolean)
