@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { Box } from '@chakra-ui/layout'
 
 import InputField from '../components/InputField'
-import { useRegisterMutation } from '../generated/graphql'
+import { useLoginMutation, useRegisterMutation } from '../generated/graphql'
 import { toErrorMap } from '../utils/toErrorMap'
 import { withApollo } from '../utils/withApollo'
 import Wrapper from '../components/Wrapper'
@@ -14,6 +14,7 @@ import Header from '../components/Header'
 
 function SignUp() {
 	const router = useRouter()
+	const [login] = useLoginMutation()
 
 	return (
 		<>
@@ -28,13 +29,22 @@ function SignUp() {
 						password: '',
 					}}
 					onSubmit={async (values, { setErrors }) => {
-						// const response = await {}
-						// if (response.data?.register.errors) {
-						// 	setErrors(toErrorMap(response.data.register.errors))
-						// } else if (response.data?.register.user) {
-						// 	console.log(response)
-						// 	router.push('/')
-						// }
+						try {
+							const response = await login({
+								variables: values,
+							})
+							// const response = await {}
+							if (response.data?.login.errors) {
+								setErrors(
+									toErrorMap(response.data.login.errors)
+								)
+							} else if (response.data?.login.user) {
+								console.log(response)
+								router.push('/')
+							}
+						} catch (error) {
+							console.log({ error })
+						}
 					}}
 				>
 					{({ isSubmitting }) => (

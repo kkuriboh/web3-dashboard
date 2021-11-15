@@ -1,7 +1,7 @@
 import { createContext, useEffect, useState } from 'react'
 import { setCookie, parseCookies } from 'nookies'
 import { useRouter } from 'next/router'
-import { useGetUserByIdQuery, useLoginMutation } from '../generated/graphql'
+import { LoginResponse } from '../generated/graphql'
 
 type AuthContextType = {
 	isAuthenticated: boolean
@@ -31,43 +31,43 @@ type User = {
 // 		},
 // 	}
 // }
-async function returnUserInfo() {
-	return {
-		name: 'John Doe',
-		email: 'jonny@mail.com',
-		password: '1234',
-		country: 'USA',
-	}
-}
+// async function returnUserInfo() {
+// 	return {
+// 		name: 'John Doe',
+// 		email: 'jonny@mail.com',
+// 		password: '1234',
+// 		country: 'USA',
+// 	}
+// }
 
-export function AuthProvider({ ...props }) {
+function AuthProvider({ ...props }, loginfn: ({}) => { data: LoginResponse }) {
 	const AuthContext = createContext({} as AuthContextType)
 	const router = useRouter()
 	const [user, setUser] = useState<User | null>(null)
 	const isAuthenticated = !!user
-	const [loginfn] = useLoginMutation()
 
-	useEffect(() => {
-		const { jid: token } = parseCookies()
-		if (token) {
-			returnUserInfo().then((user) => {
-				setUser(user)
-			})
-		}
-	}, [])
+	// reassistir o video do diego e arrumar isso
+	// useEffect(() => {
+	// 	const { jid: token } = parseCookies()
+	// 	if (token) {
+	// 		returnUserInfo().then((user) => {
+	// 			setUser(user)
+	// 		})
+	// 	}
+	// }, [])
 
 	async function login({ email, password }: loginData) {
-		const { data } = await loginfn({
+		const { data } = loginfn({
 			variables: {
 				email,
 				password,
 			},
 		})
 		if (data) {
-			setCookie(undefined, 'jid', data.login.accessToken!, {
+			setCookie(undefined, 'jid', data.accessToken, {
 				maxAge: 60 * 60 * 24,
 			})
-			setUser(data.login.user)
+			setUser(data.user)
 			router.push('/')
 		}
 	}
@@ -78,3 +78,5 @@ export function AuthProvider({ ...props }) {
 		</AuthContext.Provider>
 	)
 }
+
+export default AuthProvider

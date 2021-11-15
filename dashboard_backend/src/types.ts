@@ -1,7 +1,8 @@
-import { Response, Request, Express } from 'express'
+import { Response, Request } from 'express'
+import { Session } from 'express-session'
 
 export type MyContext = {
-	req: Request & { session: Express.Session }
+	req: Request & { session: Session }
 	res: Response
 	payload?: { userId: string }
 }

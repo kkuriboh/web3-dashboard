@@ -9,15 +9,14 @@ import {
 	Query,
 	Resolver,
 } from 'type-graphql'
-import { getConnection } from 'typeorm'
 import {
 	validateLogin,
 	validateRegisterForm,
 } from '../utils/resolverValidation'
 import FieldError from '../utils/Fielderror'
 import { MyContext } from '../types'
-import sendRefreshToken from '../utils/sendRefreshToken'
-import { createRefreshToken } from '../utils/auth'
+import { sendRefreshToken } from '../utils/sendTokens'
+import { createAccessToken, createRefreshToken } from '../utils/auth'
 
 @ObjectType()
 class UserResponse {
@@ -74,8 +73,7 @@ export class userResolver {
 		}
 		let user
 		try {
-			const result = await getConnection()
-				.createQueryBuilder()
+			const result = await User.createQueryBuilder()
 				.insert()
 				.into(User)
 				.values({
@@ -114,8 +112,7 @@ export class userResolver {
 		}
 		let user
 		try {
-			const result = await getConnection()
-				.createQueryBuilder()
+			const result = await User.createQueryBuilder()
 				.update(User)
 				.set({
 					name: options.name,
@@ -152,6 +149,7 @@ export class userResolver {
 		const user = await User.findOne({ where: { email } })
 		if (!user) {
 			return {
+				accessToken: '',
 				errors: [
 					{
 						field: 'email',
@@ -167,16 +165,31 @@ export class userResolver {
 
 		sendRefreshToken(res, createRefreshToken(user))
 
+		const accessToken = createAccessToken(user)
+		console.log({ accessToken })
+
 		return {
-			accessToken: createRefreshToken(user),
+			accessToken,
 			user,
 		}
 	}
 
 	@Mutation(() => Boolean)
-	async logout(@Ctx() { res }: MyContext) {
+	logout(@Ctx() { res }: MyContext) {
 		sendRefreshToken(res, '')
 
+		return true
+	}
+
+	@Mutation(() => Boolean)
+	invalidateTokens(@Ctx() { req }: any) {
+		if (!req.userId) {
+			return false
+		}
+		const user = User.findOne(req.userId)
+		if (!user) {
+			return false
+		}
 		return true
 	}
 

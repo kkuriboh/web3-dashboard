@@ -1,14 +1,16 @@
 import type { AppProps } from 'next/app'
 import { ChakraProvider } from '@chakra-ui/react'
-import { AuthProvider } from '../utils/auth'
+// import AuthProvider from '../utils/auth'
+// import { client } from '../utils/withApollo'
+import { SessionProvider } from 'next-auth/react'
 
 function MyApp({ Component, pageProps }: AppProps) {
 	return (
-		<AuthProvider>
+		<SessionProvider session={pageProps.session}>
 			<ChakraProvider resetCSS>
 				<Component {...pageProps} />
 			</ChakraProvider>
-		</AuthProvider>
+		</SessionProvider>
 	)
 }
 
