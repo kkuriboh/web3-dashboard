@@ -1,7 +1,7 @@
 import { User } from '../entities/User'
 import {
 	Arg,
-	Ctx,
+	// Ctx,
 	Field,
 	InputType,
 	Mutation,
@@ -14,9 +14,9 @@ import {
 	validateRegisterForm,
 } from '../utils/resolverValidation'
 import FieldError from '../utils/Fielderror'
-import { MyContext } from '../types'
-import { sendRefreshToken } from '../utils/sendTokens'
-import { createAccessToken, createRefreshToken } from '../utils/auth'
+// import { MyContext } from '../types'
+// import { sendRefreshToken } from '../utils/sendTokens'
+// import { createAccessToken, createRefreshToken } from '../utils/auth'
 
 @ObjectType()
 class UserResponse {
@@ -29,8 +29,8 @@ class UserResponse {
 
 @ObjectType()
 class LoginResponse {
-	@Field(() => String)
-	accessToken?: string
+	// @Field(() => String)
+	// accessToken?: string
 
 	@Field(() => User)
 	user?: User
@@ -143,13 +143,12 @@ export class userResolver {
 	@Mutation(() => LoginResponse)
 	async login(
 		@Arg('email') email: string,
-		@Arg('password') password: string,
-		@Ctx() { res }: MyContext
+		@Arg('password') password: string
+		// @Ctx() { res }: MyContext
 	): Promise<LoginResponse> {
 		const user = await User.findOne({ where: { email } })
 		if (!user) {
 			return {
-				accessToken: '',
 				errors: [
 					{
 						field: 'email',
@@ -158,40 +157,38 @@ export class userResolver {
 				],
 			}
 		}
+
 		const errors = validateLogin({ email, password })
 		if (errors) {
 			return { errors }
 		}
 
-		sendRefreshToken(res, createRefreshToken(user))
+		// sendRefreshToken(res, createRefreshToken(user))
 
-		const accessToken = createAccessToken(user)
-		console.log({ accessToken })
+		// const accessToken = createAccessToken(user)
+		// console.log({ accessToken })
 
-		return {
-			accessToken,
-			user,
-		}
+		return { user }
 	}
 
-	@Mutation(() => Boolean)
-	logout(@Ctx() { res }: MyContext) {
-		sendRefreshToken(res, '')
+	// @Mutation(() => Boolean)
+	// logout(@Ctx() { res }: MyContext) {
+	// 	sendRefreshToken(res, '')
 
-		return true
-	}
+	// 	return true
+	// }
 
-	@Mutation(() => Boolean)
-	invalidateTokens(@Ctx() { req }: any) {
-		if (!req.userId) {
-			return false
-		}
-		const user = User.findOne(req.userId)
-		if (!user) {
-			return false
-		}
-		return true
-	}
+	// @Mutation(() => Boolean)
+	// invalidateTokens(@Ctx() { req }: any) {
+	// 	if (!req.userId) {
+	// 		return false
+	// 	}
+	// 	const user = User.findOne(req.userId)
+	// 	if (!user) {
+	// 		return false
+	// 	}
+	// 	return true
+	// }
 
 	@Mutation(() => Boolean)
 	async deleteUser(@Arg('id') id: number): Promise<Boolean> {

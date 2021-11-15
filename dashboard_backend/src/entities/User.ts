@@ -36,6 +36,6 @@ export class User extends BaseEntity {
 	@CreateDateColumn()
 	updatedAt: Date
 
-	@Column('int', { default: 0 })
-	tokenVersion: number
+	// @Column('int', { default: 0 })
+	// tokenVersion: number
 }
