@@ -5,7 +5,9 @@ import {
 	PrimaryGeneratedColumn,
 	Column,
 	CreateDateColumn,
+	OneToMany,
 } from 'typeorm'
+import Game from './Game'
 
 @ObjectType()
 @Entity()
@@ -28,14 +30,12 @@ export class User extends BaseEntity {
 	@Column()
 	country!: string
 
-	@Field(() => String)
+	@OneToMany(() => Game, (game) => game.OP)
+	postedGames: Game[]
+
 	@CreateDateColumn()
 	createdAt: Date
 
-	@Field(() => String)
 	@CreateDateColumn()
 	updatedAt: Date
-
-	// @Column('int', { default: 0 })
-	// tokenVersion: number
 }

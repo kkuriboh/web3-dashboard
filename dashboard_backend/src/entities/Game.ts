@@ -1,11 +1,13 @@
-import { Field, Float, ObjectType } from 'type-graphql'
+import { Field, ObjectType } from 'type-graphql'
 import {
 	BaseEntity,
 	Column,
 	CreateDateColumn,
 	Entity,
+	ManyToOne,
 	PrimaryGeneratedColumn,
 } from 'typeorm'
+import { User } from './User'
 
 @ObjectType()
 @Entity()
@@ -30,9 +32,16 @@ export default class Game extends BaseEntity {
 	@Column()
 	description: string
 
-	@Field(() => Float)
+	@Field()
 	@Column()
-	price: number
+	price: String
+
+	@Column()
+	OPId: number
+
+	@Field(() => User)
+	@ManyToOne(() => User, (user) => user.postedGames)
+	OP: User
 
 	@Field(() => String)
 	@CreateDateColumn()

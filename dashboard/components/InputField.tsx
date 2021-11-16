@@ -4,17 +4,20 @@ import {
 	Input,
 	FormErrorMessage,
 	Select,
+	Textarea,
 } from '@chakra-ui/react'
 import { useField } from 'formik'
 import { InputHTMLAttributes } from 'react'
 
 type InputFieldProps = InputHTMLAttributes<HTMLInputElement> &
-	InputHTMLAttributes<HTMLSelectElement> & {
+	InputHTMLAttributes<HTMLSelectElement> &
+	InputHTMLAttributes<HTMLTextAreaElement> & {
 		label: string
 		name: string
 		selectLabel?: string
 		selectName?: string
 		isSelect?: boolean
+		isTextArea?: boolean
 	}
 
 export default function InputField({
@@ -23,6 +26,7 @@ export default function InputField({
 	selectLabel,
 	selectName,
 	isSelect,
+	isTextArea,
 	...props
 }: InputFieldProps) {
 	const [field, { error }] = useField(props)
@@ -37,6 +41,8 @@ export default function InputField({
 					<option value="US">US</option>
 					<option value="CA">CA</option>
 				</Select>
+			) : isTextArea ? (
+				<Textarea {...field} {...props} id={field.name} />
 			) : (
 				<Input {...field} {...props} id={field.name} />
 			)}

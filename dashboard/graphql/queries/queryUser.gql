@@ -3,7 +3,5 @@ query GetUserById($getUserByIdId: Float!) {
 		id
 		name
 		email
-		createdAt
-		updatedAt
 	}
 }

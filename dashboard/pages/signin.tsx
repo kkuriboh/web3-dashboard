@@ -6,11 +6,12 @@ import Link from 'next/link'
 import { Box } from '@chakra-ui/layout'
 
 import InputField from '../components/InputField'
-import { useLoginMutation, useRegisterMutation } from '../generated/graphql'
+import { useLoginMutation } from '../generated/graphql'
 import { toErrorMap } from '../utils/toErrorMap'
 import { withApollo } from '../utils/withApollo'
 import Wrapper from '../components/Wrapper'
 import Header from '../components/Header'
+import { setUser } from '../utils/auth'
 
 function SignUp() {
 	const router = useRouter()
@@ -33,13 +34,12 @@ function SignUp() {
 							const response = await login({
 								variables: values,
 							})
-							// const response = await {}
 							if (response.data?.login.errors) {
 								setErrors(
 									toErrorMap(response.data.login.errors)
 								)
 							} else if (response.data?.login.user) {
-								console.log(response)
+								setUser(response.data.login.user)
 								router.push('/')
 							}
 						} catch (error) {

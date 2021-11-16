@@ -16,10 +16,22 @@ export type Scalars = {
   DateTime: any;
 };
 
-export type FieldError = {
-  __typename?: 'FieldError';
-  field: Scalars['String'];
-  message: Scalars['String'];
+export type Query = {
+  __typename?: 'Query';
+  getGameById?: Maybe<Game>;
+  getUserById?: Maybe<User>;
+  getUsers?: Maybe<Array<User>>;
+  selectGames?: Maybe<Array<Game>>;
+};
+
+
+export type QueryGetGameByIdArgs = {
+  id: Scalars['Float'];
+};
+
+
+export type QueryGetUserByIdArgs = {
+  id: Scalars['Float'];
 };
 
 export type Game = {
@@ -30,22 +42,17 @@ export type Game = {
   developer: Scalars['String'];
   id: Scalars['Float'];
   name: Scalars['String'];
-  price: Scalars['Float'];
+  OP: User;
+  price: Scalars['String'];
   releaseDate: Scalars['String'];
   updatedAt: Scalars['String'];
 };
 
-export type GameResponse = {
-  __typename?: 'GameResponse';
-  errors?: Maybe<Array<FieldError>>;
-  game?: Maybe<Game>;
-};
-
-export type LoginResponse = {
-  __typename?: 'LoginResponse';
-  accessToken: Scalars['String'];
-  errors?: Maybe<Array<FieldError>>;
-  user: User;
+export type User = {
+  __typename?: 'User';
+  email: Scalars['String'];
+  id: Scalars['Float'];
+  name: Scalars['String'];
 };
 
 export type Mutation = {
@@ -54,7 +61,6 @@ export type Mutation = {
   deleteGame: Scalars['Boolean'];
   deleteUser: Scalars['Boolean'];
   login: LoginResponse;
-  logout: Scalars['Boolean'];
   register: UserResponse;
   updateGame: GameResponse;
   updateUser: UserResponse;
@@ -98,45 +104,32 @@ export type MutationUpdateUserArgs = {
   options: UserInput;
 };
 
-export type Query = {
-  __typename?: 'Query';
-  getGameById?: Maybe<Game>;
-  getUserById?: Maybe<User>;
-  getUsers?: Maybe<Array<User>>;
-};
-
-
-export type QueryGetGameByIdArgs = {
-  id: Scalars['Float'];
-};
-
-
-export type QueryGetUserByIdArgs = {
-  id: Scalars['Float'];
-};
-
-export type User = {
-  __typename?: 'User';
-  createdAt: Scalars['String'];
-  email: Scalars['String'];
-  id: Scalars['Float'];
-  name: Scalars['String'];
-  updatedAt: Scalars['String'];
-};
-
-export type UserResponse = {
-  __typename?: 'UserResponse';
-  errors?: Maybe<Array<FieldError>>;
-  user?: Maybe<User>;
-};
-
 export type GameInput = {
   category: Scalars['String'];
   description: Scalars['String'];
   developer: Scalars['String'];
   name: Scalars['String'];
-  price: Scalars['Float'];
+  OPId: Scalars['Float'];
+  price: Scalars['String'];
   releaseDate: Scalars['DateTime'];
+};
+
+export type GameResponse = {
+  __typename?: 'GameResponse';
+  errors?: Maybe<Array<FieldError>>;
+  game?: Maybe<Game>;
+};
+
+export type FieldError = {
+  __typename?: 'FieldError';
+  field: Scalars['String'];
+  message: Scalars['String'];
+};
+
+export type LoginResponse = {
+  __typename?: 'LoginResponse';
+  errors?: Maybe<Array<FieldError>>;
+  user: User;
 };
 
 export type UserInput = {
@@ -146,48 +139,94 @@ export type UserInput = {
   password: Scalars['String'];
 };
 
+export type UserResponse = {
+  __typename?: 'UserResponse';
+  errors?: Maybe<Array<FieldError>>;
+  user?: Maybe<User>;
+};
+
+export type AddGameMutationVariables = Exact<{
+  options: GameInput;
+}>;
+
+
+export type AddGameMutation = { __typename?: 'Mutation', addGame: { __typename?: 'GameResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null | undefined } };
+
 export type LoginMutationVariables = Exact<{
   password: Scalars['String'];
   email: Scalars['String'];
 }>;
 
 
-export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'LoginResponse', accessToken: string, user: { __typename?: 'User', id: number, name: string, email: string, createdAt: string, updatedAt: string }, errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null | undefined } };
-
-export type LogoutMutationVariables = Exact<{ [key: string]: never; }>;
-
-
-export type LogoutMutation = { __typename?: 'Mutation', logout: boolean };
+export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'LoginResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null | undefined, user: { __typename?: 'User', id: number, name: string, email: string } } };
 
 export type RegisterMutationVariables = Exact<{
   options: UserInput;
 }>;
 
 
-export type RegisterMutation = { __typename?: 'Mutation', register: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null | undefined, user?: { __typename?: 'User', id: number, name: string, email: string, createdAt: string, updatedAt: string } | null | undefined } };
+export type RegisterMutation = { __typename?: 'Mutation', register: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null | undefined, user?: { __typename?: 'User', id: number, name: string, email: string } | null | undefined } };
 
 export type GetUserByIdQueryVariables = Exact<{
   getUserByIdId: Scalars['Float'];
 }>;
 
 
-export type GetUserByIdQuery = { __typename?: 'Query', getUserById?: { __typename?: 'User', id: number, name: string, email: string, createdAt: string, updatedAt: string } | null | undefined };
+export type GetUserByIdQuery = { __typename?: 'Query', getUserById?: { __typename?: 'User', id: number, name: string, email: string } | null | undefined };
+
+export type SelectGamesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
+export type SelectGamesQuery = { __typename?: 'Query', selectGames?: Array<{ __typename?: 'Game', id: number, name: string, developer: string, category: string, description: string, price: string, releaseDate: string }> | null | undefined };
+
+
+export const AddGameDocument = gql`
+    mutation AddGame($options: gameInput!) {
+  addGame(options: $options) {
+    errors {
+      field
+      message
+    }
+  }
+}
+    `;
+export type AddGameMutationFn = Apollo.MutationFunction<AddGameMutation, AddGameMutationVariables>;
+
+/**
+ * __useAddGameMutation__
+ *
+ * To run a mutation, you first call `useAddGameMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddGameMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addGameMutation, { data, loading, error }] = useAddGameMutation({
+ *   variables: {
+ *      options: // value for 'options'
+ *   },
+ * });
+ */
+export function useAddGameMutation(baseOptions?: Apollo.MutationHookOptions<AddGameMutation, AddGameMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AddGameMutation, AddGameMutationVariables>(AddGameDocument, options);
+      }
+export type AddGameMutationHookResult = ReturnType<typeof useAddGameMutation>;
+export type AddGameMutationResult = Apollo.MutationResult<AddGameMutation>;
+export type AddGameMutationOptions = Apollo.BaseMutationOptions<AddGameMutation, AddGameMutationVariables>;
 export const LoginDocument = gql`
     mutation Login($password: String!, $email: String!) {
   login(password: $password, email: $email) {
-    accessToken
+    errors {
+      field
+      message
+    }
     user {
       id
       name
       email
-      createdAt
-      updatedAt
-    }
-    errors {
-      field
-      message
     }
   }
 }
@@ -219,36 +258,6 @@ export function useLoginMutation(baseOptions?: Apollo.MutationHookOptions<LoginM
 export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
 export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
 export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
-export const LogoutDocument = gql`
-    mutation Logout {
-  logout
-}
-    `;
-export type LogoutMutationFn = Apollo.MutationFunction<LogoutMutation, LogoutMutationVariables>;
-
-/**
- * __useLogoutMutation__
- *
- * To run a mutation, you first call `useLogoutMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useLogoutMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [logoutMutation, { data, loading, error }] = useLogoutMutation({
- *   variables: {
- *   },
- * });
- */
-export function useLogoutMutation(baseOptions?: Apollo.MutationHookOptions<LogoutMutation, LogoutMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<LogoutMutation, LogoutMutationVariables>(LogoutDocument, options);
-      }
-export type LogoutMutationHookResult = ReturnType<typeof useLogoutMutation>;
-export type LogoutMutationResult = Apollo.MutationResult<LogoutMutation>;
-export type LogoutMutationOptions = Apollo.BaseMutationOptions<LogoutMutation, LogoutMutationVariables>;
 export const RegisterDocument = gql`
     mutation Register($options: userInput!) {
   register(options: $options) {
@@ -260,8 +269,6 @@ export const RegisterDocument = gql`
       id
       name
       email
-      createdAt
-      updatedAt
     }
   }
 }
@@ -298,8 +305,6 @@ export const GetUserByIdDocument = gql`
     id
     name
     email
-    createdAt
-    updatedAt
   }
 }
     `;
@@ -331,3 +336,43 @@ export function useGetUserByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOption
 export type GetUserByIdQueryHookResult = ReturnType<typeof useGetUserByIdQuery>;
 export type GetUserByIdLazyQueryHookResult = ReturnType<typeof useGetUserByIdLazyQuery>;
 export type GetUserByIdQueryResult = Apollo.QueryResult<GetUserByIdQuery, GetUserByIdQueryVariables>;
+export const SelectGamesDocument = gql`
+    query SelectGames {
+  selectGames {
+    id
+    name
+    developer
+    category
+    description
+    price
+    releaseDate
+  }
+}
+    `;
+
+/**
+ * __useSelectGamesQuery__
+ *
+ * To run a query within a React component, call `useSelectGamesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSelectGamesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSelectGamesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useSelectGamesQuery(baseOptions?: Apollo.QueryHookOptions<SelectGamesQuery, SelectGamesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<SelectGamesQuery, SelectGamesQueryVariables>(SelectGamesDocument, options);
+      }
+export function useSelectGamesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SelectGamesQuery, SelectGamesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<SelectGamesQuery, SelectGamesQueryVariables>(SelectGamesDocument, options);
+        }
+export type SelectGamesQueryHookResult = ReturnType<typeof useSelectGamesQuery>;
+export type SelectGamesLazyQueryHookResult = ReturnType<typeof useSelectGamesLazyQuery>;
+export type SelectGamesQueryResult = Apollo.QueryResult<SelectGamesQuery, SelectGamesQueryVariables>;

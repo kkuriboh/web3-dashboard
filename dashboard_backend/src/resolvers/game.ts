@@ -7,7 +7,6 @@ import {
 	Query,
 	Resolver,
 } from 'type-graphql'
-import { getConnection } from 'typeorm'
 import Game from '../entities/Game'
 import { validateGameForm } from '../utils/resolverValidation'
 import FieldError from '../utils/Fielderror'
@@ -32,9 +31,11 @@ export class gameInput {
 	@Field()
 	description: string
 	@Field()
-	price: number
+	price: string
 	@Field()
 	releaseDate: Date
+	@Field()
+	OPId: number
 }
 
 @Resolver(Game)
@@ -43,6 +44,12 @@ export class gameResolver {
 	async getGameById(@Arg('id') id: number) {
 		const game = await Game.findOne(id)
 		return game
+	}
+
+	@Query(() => [Game], { nullable: true })
+	async selectGames() {
+		const result = await Game.find()
+		return result
 	}
 
 	@Mutation(() => GameResponse)
@@ -54,8 +61,7 @@ export class gameResolver {
 
 		let game
 		try {
-			const result = await getConnection()
-				.createQueryBuilder()
+			const result = await Game.createQueryBuilder()
 				.insert()
 				.into(Game)
 				.values({
@@ -65,6 +71,7 @@ export class gameResolver {
 					developer: options.developer,
 					releaseDate: options.releaseDate,
 					price: options.price,
+					OPId: options.OPId,
 				})
 				.returning('*')
 				.execute()
@@ -98,8 +105,7 @@ export class gameResolver {
 
 		let game
 		try {
-			const result = await getConnection()
-				.createQueryBuilder()
+			const result = await Game.createQueryBuilder()
 				.update(Game)
 				.set({
 					name: options.name,
@@ -108,6 +114,7 @@ export class gameResolver {
 					developer: options.developer,
 					releaseDate: options.releaseDate,
 					price: options.price,
+					OPId: options.OPId,
 				})
 				.where({ id })
 				.returning('*')

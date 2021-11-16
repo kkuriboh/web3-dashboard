@@ -1,0 +1,11 @@
+query SelectGames {
+	selectGames {
+		id
+		name
+		developer
+		category
+		description
+		price
+		releaseDate
+	}
+}
