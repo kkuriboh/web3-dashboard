@@ -12,47 +12,38 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
-  /** The javascript `Date` as string. Type represents date and time as the ISO Date string. */
-  DateTime: any;
 };
 
-export type Query = {
-  __typename?: 'Query';
-  getGameById?: Maybe<Game>;
-  getUserById?: Maybe<User>;
-  getUsers?: Maybe<Array<User>>;
-  selectGames?: Maybe<Array<Game>>;
-};
-
-
-export type QueryGetGameByIdArgs = {
-  id: Scalars['Float'];
-};
-
-
-export type QueryGetUserByIdArgs = {
-  id: Scalars['Float'];
+export type FieldError = {
+  __typename?: 'FieldError';
+  field: Scalars['String'];
+  message: Scalars['String'];
 };
 
 export type Game = {
   __typename?: 'Game';
+  OP: User;
   category: Scalars['String'];
   createdAt: Scalars['String'];
   description: Scalars['String'];
   developer: Scalars['String'];
   id: Scalars['Float'];
   name: Scalars['String'];
-  OP: User;
   price: Scalars['String'];
   releaseDate: Scalars['String'];
   updatedAt: Scalars['String'];
 };
 
-export type User = {
-  __typename?: 'User';
-  email: Scalars['String'];
-  id: Scalars['Float'];
-  name: Scalars['String'];
+export type GameResponse = {
+  __typename?: 'GameResponse';
+  errors?: Maybe<Array<FieldError>>;
+  game?: Maybe<Game>;
+};
+
+export type LoginResponse = {
+  __typename?: 'LoginResponse';
+  errors?: Maybe<Array<FieldError>>;
+  user: User;
 };
 
 export type Mutation = {
@@ -104,32 +95,45 @@ export type MutationUpdateUserArgs = {
   options: UserInput;
 };
 
+export type Query = {
+  __typename?: 'Query';
+  getGameById?: Maybe<Game>;
+  getUserById?: Maybe<User>;
+  getUsers?: Maybe<Array<User>>;
+  selectGames?: Maybe<Array<Game>>;
+};
+
+
+export type QueryGetGameByIdArgs = {
+  id: Scalars['Float'];
+};
+
+
+export type QueryGetUserByIdArgs = {
+  id: Scalars['Float'];
+};
+
+export type User = {
+  __typename?: 'User';
+  email: Scalars['String'];
+  id: Scalars['Float'];
+  name: Scalars['String'];
+};
+
+export type UserResponse = {
+  __typename?: 'UserResponse';
+  errors?: Maybe<Array<FieldError>>;
+  user?: Maybe<User>;
+};
+
 export type GameInput = {
+  OPId: Scalars['Float'];
   category: Scalars['String'];
   description: Scalars['String'];
   developer: Scalars['String'];
   name: Scalars['String'];
-  OPId: Scalars['Float'];
   price: Scalars['String'];
-  releaseDate: Scalars['DateTime'];
-};
-
-export type GameResponse = {
-  __typename?: 'GameResponse';
-  errors?: Maybe<Array<FieldError>>;
-  game?: Maybe<Game>;
-};
-
-export type FieldError = {
-  __typename?: 'FieldError';
-  field: Scalars['String'];
-  message: Scalars['String'];
-};
-
-export type LoginResponse = {
-  __typename?: 'LoginResponse';
-  errors?: Maybe<Array<FieldError>>;
-  user: User;
+  releaseDate: Scalars['String'];
 };
 
 export type UserInput = {
@@ -137,12 +141,6 @@ export type UserInput = {
   email: Scalars['String'];
   name: Scalars['String'];
   password: Scalars['String'];
-};
-
-export type UserResponse = {
-  __typename?: 'UserResponse';
-  errors?: Maybe<Array<FieldError>>;
-  user?: Maybe<User>;
 };
 
 export type AddGameMutationVariables = Exact<{

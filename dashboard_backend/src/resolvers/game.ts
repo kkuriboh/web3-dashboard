@@ -33,7 +33,7 @@ export class gameInput {
 	@Field()
 	price: string
 	@Field()
-	releaseDate: Date
+	releaseDate: string
 	@Field()
 	OPId: number
 }

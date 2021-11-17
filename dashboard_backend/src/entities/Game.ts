@@ -44,8 +44,8 @@ export default class Game extends BaseEntity {
 	OP: User
 
 	@Field(() => String)
-	@CreateDateColumn()
-	releaseDate: Date
+	@Column()
+	releaseDate: string
 
 	@Field(() => String)
 	@CreateDateColumn()
