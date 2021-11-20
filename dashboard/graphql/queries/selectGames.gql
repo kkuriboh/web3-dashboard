@@ -6,6 +6,10 @@ query SelectGames {
 		category
 		description
 		price
+		OP {
+			id
+			name
+		}
 		releaseDate
 	}
 }

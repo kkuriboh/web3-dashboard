@@ -175,7 +175,7 @@ export type GetUserByIdQuery = { __typename?: 'Query', getUserById?: { __typenam
 export type SelectGamesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type SelectGamesQuery = { __typename?: 'Query', selectGames?: Array<{ __typename?: 'Game', id: number, name: string, developer: string, category: string, description: string, price: string, releaseDate: string }> | null | undefined };
+export type SelectGamesQuery = { __typename?: 'Query', selectGames?: Array<{ __typename?: 'Game', id: number, name: string, developer: string, category: string, description: string, price: string, releaseDate: string, OP: { __typename?: 'User', id: number, name: string } }> | null | undefined };
 
 
 export const AddGameDocument = gql`
@@ -343,6 +343,10 @@ export const SelectGamesDocument = gql`
     category
     description
     price
+    OP {
+      id
+      name
+    }
     releaseDate
   }
 }

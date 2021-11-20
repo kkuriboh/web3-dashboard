@@ -17,6 +17,7 @@ import { getUser } from '../../utils/auth'
 import Wrapper from '../../components/Wrapper'
 import Header from '../../components/Header'
 import { useSelectGamesQuery } from '../../generated/graphql'
+import styled from '@emotion/styled'
 
 function Dashboard() {
 	const router = useRouter()
@@ -43,7 +44,7 @@ function Dashboard() {
 					</>
 				) : (
 					<>
-						<Table variant="simple">
+						<Table variant="simple" position="relative">
 							<TableCaption>games list</TableCaption>
 							<Thead>
 								<Tr>
@@ -54,6 +55,7 @@ function Dashboard() {
 									<Th>Description</Th>
 									<Th isNumeric>Price</Th>
 									<Th>Release Date</Th>
+									<Th>OP</Th>
 									<Th>Actions</Th>
 								</Tr>
 							</Thead>
@@ -61,7 +63,7 @@ function Dashboard() {
 								{
 									data ? (
 										data.map((game) => (
-											<Tr>
+											<Tr key={game.id}>
 												<Td>{game.id}</Td>
 												<Td>{game.name}</Td>
 												<Td>{game.developer}</Td>
@@ -69,28 +71,33 @@ function Dashboard() {
 												<Td>{game.description}</Td>
 												<Td isNumeric>{game.price}</Td>
 												<Td>{game.releaseDate}</Td>
-												<Td
-													display="flex"
-													flexDirection="column"
-													alignItems="flex-end"
-												>
-													<Text
-														cursor="pointer"
-														textDecor="underline"
+												<Td>{game.OP.id}</Td>
+												{game.OP.id === user.id ? (
+													<Td
+														display="flex"
+														flexDirection="column"
+														alignItems="flex-end"
 													>
-														edit
-													</Text>
-													<Text
-														cursor="pointer"
-														textDecor="underline"
-													>
-														delete
-													</Text>
-												</Td>
+														<Text
+															cursor="pointer"
+															textDecor="underline"
+														>
+															edit
+														</Text>
+														<Text
+															cursor="pointer"
+															textDecor="underline"
+														>
+															delete
+														</Text>
+													</Td>
+												) : null}
 											</Tr>
 										))
 									) : (
-										<p>no data</p>
+										<NoData>
+											<p>No data</p>
+										</NoData>
 									)
 
 									/* <Tr>
@@ -119,6 +126,7 @@ function Dashboard() {
 									<Th>Description</Th>
 									<Th isNumeric>Price</Th>
 									<Th>Release Date</Th>
+									<Th>OP</Th>
 									<Th>Actions</Th>
 								</Tr>
 							</Tfoot>
@@ -136,5 +144,20 @@ function Dashboard() {
 		</>
 	)
 }
+
+const NoData = styled.div`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	background-color: #999;
+	top: 0;
+	left: 0;
+	mix-blend-mode: saturation;
+	color: black;
+	/* filter: blur(4px); */
+`
 
 export default withApollo({ ssr: true })(Dashboard)

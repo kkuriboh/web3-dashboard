@@ -1,0 +1,11 @@
+export { AggregateGameArgs } from "./AggregateGameArgs";
+export { CreateGameArgs } from "./CreateGameArgs";
+export { DeleteGameArgs } from "./DeleteGameArgs";
+export { DeleteManyGameArgs } from "./DeleteManyGameArgs";
+export { FindFirstGameArgs } from "./FindFirstGameArgs";
+export { FindManyGameArgs } from "./FindManyGameArgs";
+export { FindUniqueGameArgs } from "./FindUniqueGameArgs";
+export { GroupByGameArgs } from "./GroupByGameArgs";
+export { UpdateGameArgs } from "./UpdateGameArgs";
+export { UpdateManyGameArgs } from "./UpdateManyGameArgs";
+export { UpsertGameArgs } from "./UpsertGameArgs";

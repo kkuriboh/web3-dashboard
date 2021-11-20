@@ -19,7 +19,7 @@ function AddGame() {
 	return (
 		<>
 			<Header />
-			{user.isAuthenticated ? (
+			{!user.isAuthenticated ? (
 				<NotAuthenticated />
 			) : (
 				<>
