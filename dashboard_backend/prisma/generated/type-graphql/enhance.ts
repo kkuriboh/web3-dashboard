@@ -279,8 +279,8 @@ function applyTypeClassEnhanceConfig<
 }
 
 const modelsInfo = {
-  Game: ["id", "name", "developer", "category", "description", "price", "releaseDate", "OPId", "createdAt", "updatedAt"],
-  User: ["id", "name", "email", "password", "country", "createdAt", "updatedAt"]
+  Game: ["id", "name", "developer", "category", "description", "price", "releaseDate", "createdAt", "updatedAt"],
+  User: ["id", "name", "email", "country"]
 };
 
 type ModelNames = keyof typeof models;
@@ -382,7 +382,7 @@ const inputsInfo = {
   GameScalarWhereWithAggregatesInput: ["AND", "OR", "NOT", "id", "name", "developer", "category", "description", "price", "releaseDate", "OPId", "createdAt", "updatedAt"],
   UserWhereInput: ["AND", "OR", "NOT", "id", "name", "email", "password", "country", "postedGames", "createdAt", "updatedAt"],
   UserOrderByWithRelationInput: ["id", "name", "email", "password", "country", "postedGames", "createdAt", "updatedAt"],
-  UserWhereUniqueInput: ["id"],
+  UserWhereUniqueInput: ["id", "email"],
   UserOrderByWithAggregationInput: ["id", "name", "email", "password", "country", "createdAt", "updatedAt", "_count", "_avg", "_max", "_min", "_sum"],
   UserScalarWhereWithAggregatesInput: ["AND", "OR", "NOT", "id", "name", "email", "password", "country", "createdAt", "updatedAt"],
   GameCreateInput: ["name", "developer", "category", "description", "price", "releaseDate", "createdAt", "updatedAt", "OP"],

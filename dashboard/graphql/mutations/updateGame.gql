@@ -1,0 +1,5 @@
+mutation UpdateGame($data: GameUpdateInput!, $where: GameWhereUniqueInput!) {
+	updateGame(data: $data, where: $where) {
+		id
+	}
+}

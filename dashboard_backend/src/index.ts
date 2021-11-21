@@ -6,6 +6,7 @@ import { buildSchema } from 'type-graphql'
 import cors from 'cors'
 import { PrismaClient } from '.prisma/client'
 import { resolvers } from '../prisma/generated/type-graphql'
+import CustomUserResolvers from './custom-resolvers'
 
 async function main() {
 	const prisma = new PrismaClient()
@@ -21,7 +22,7 @@ async function main() {
 
 	const server = new ApolloServer({
 		schema: await buildSchema({
-			resolvers: resolvers,
+			resolvers: [CustomUserResolvers, ...resolvers],
 			validate: false,
 		}),
 		context: () => ({ prisma }),

@@ -1,7 +1,8 @@
-query GetUserById($getUserByIdId: Float!) {
-	getUserById(id: $getUserByIdId) {
+query getUser($where: UserWhereUniqueInput!) {
+	user(where: $where) {
 		id
 		name
 		email
+		country
 	}
 }

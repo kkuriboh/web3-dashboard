@@ -39,8 +39,12 @@ function SignUp() {
 									toErrorMap(response.data.login.errors)
 								)
 							} else if (response.data?.login.user) {
-								setUser(response.data.login.user)
-								router.push('/')
+								setUser({
+									_count: { postedGames: 0 },
+									postedGames: [],
+									...response.data.login.user,
+								})
+								router.back()
 							}
 						} catch (error) {
 							console.log({ error })

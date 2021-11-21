@@ -15,12 +15,11 @@
 		"jsonwebtoken": "^8.5.1",
 		"pg": "^8.7.1",
 		"reflect-metadata": "^0.1.13",
-		"type-graphql": "^1.1.1",
-		"typeorm": "^0.2.38"
+		"type-graphql": "^1.1.1"
 	},
 	"scripts": {
 		"watch": "tsc -w",
-		"dev": "nodemon dist/index.js",
+		"dev": "nodemon dist/src/index.js",
 		"dev2": "ts-node-dev src/index.ts"
 	},
 	"devDependencies": {

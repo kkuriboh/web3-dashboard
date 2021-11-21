@@ -20,6 +20,7 @@ model Game {
   description String
   price       Float
   releaseDate String
+  /// @TypeGraphQL.omit(output: true, input: true)
   OPId        Int
   OP          User     @relation(fields: [OPId], references: [id])
   createdAt   DateTime @default(now())
@@ -29,10 +30,13 @@ model Game {
 model User {
   id          Int      @id @unique @default(autoincrement())
   name        String
-  email       String
+  email       String   @unique
+  /// @TypeGraphQL.omit(output: true)
   password    String
   country     String
   postedGames Game[]
+  /// @TypeGraphQL.omit(output: true, input: true)
   createdAt   DateTime @default(now())
+  /// @TypeGraphQL.omit(output: true, input: true)
   updatedAt   DateTime @updatedAt
 }

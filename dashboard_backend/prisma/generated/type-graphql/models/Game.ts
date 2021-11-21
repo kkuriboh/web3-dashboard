@@ -43,10 +43,7 @@ export class Game {
   })
   releaseDate!: string;
 
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
-    nullable: false
-  })
-  OPId!: number;
+  OPId?: number;
 
   OP?: User;
 

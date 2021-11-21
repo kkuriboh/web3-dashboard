@@ -1,8 +1,5 @@
-import { Response, Request } from 'express'
-import { Session } from 'express-session'
+import { PrismaClient } from '.prisma/client'
 
 export type MyContext = {
-	req: Request & { session: Session }
-	res: Response
-	payload?: { userId: string }
+	prisma: PrismaClient
 }

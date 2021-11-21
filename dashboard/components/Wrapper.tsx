@@ -8,7 +8,6 @@ type WrapperProps = BoxProps & {
 export default function Wrapper({ variant, ...props }: WrapperProps) {
 	return (
 		<Box
-			as="main"
 			maxW={
 				variant === 'small'
 					? '25rem'

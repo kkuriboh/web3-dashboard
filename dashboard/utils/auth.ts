@@ -4,10 +4,13 @@ type UserType = User & {
 	isAuthenticated: boolean
 }
 let user: UserType = {
-	isAuthenticated: false,
-	id: 0,
-	email: '',
-	name: '',
+	isAuthenticated: true,
+	id: 4,
+	email: 'aaa',
+	name: 'Augusto',
+	country: 'BR',
+	_count: { postedGames: 0 },
+	postedGames: [],
 }
 
 export function getUser() {

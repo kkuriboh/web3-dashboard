@@ -1,8 +1,5 @@
-mutation AddGame($options: gameInput!) {
-	addGame(options: $options) {
-		errors {
-			field
-			message
-		}
+mutation CreateGame($data: GameCreateInput!) {
+	createGame(data: $data) {
+		id
 	}
 }

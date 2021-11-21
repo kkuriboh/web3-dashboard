@@ -62,11 +62,6 @@ export class GameWhereInput {
   })
   releaseDate?: StringFilter | undefined;
 
-  @TypeGraphQL.Field(_type => IntFilter, {
-    nullable: true
-  })
-  OPId?: IntFilter | undefined;
-
   @TypeGraphQL.Field(_type => UserRelationFilter, {
     nullable: true
   })

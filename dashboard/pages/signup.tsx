@@ -14,7 +14,7 @@ import Header from '../components/Header'
 
 function SignUp() {
 	const router = useRouter()
-	const [register, { error }] = useRegisterMutation()
+	const [register] = useRegisterMutation()
 
 	return (
 		<>
@@ -28,6 +28,7 @@ function SignUp() {
 						name: '',
 						email: '',
 						password: '',
+						confirmPassword: '',
 						country: '',
 					}}
 					onSubmit={async (values, { setErrors }) => {
@@ -40,7 +41,7 @@ function SignUp() {
 							setErrors(toErrorMap(response.data.register.errors))
 						} else if (response.data?.register.user) {
 							console.log(response)
-							router.push('/')
+							router.back()
 						}
 					}}
 				>
@@ -60,6 +61,12 @@ function SignUp() {
 								label="Password"
 								name="password"
 								placeholder="password"
+								type="password"
+							/>
+							<InputField
+								label="Confirm Password"
+								name="confirmPassword"
+								placeholder="confirm password"
 								type="password"
 							/>
 							<InputField

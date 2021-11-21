@@ -1,5 +1,5 @@
-query SelectGames($orderBy: [GameOrderByWithRelationInput!]) {
-	games(orderBy: $orderBy) {
+query Game($where: GameWhereUniqueInput!) {
+	game(where: $where) {
 		id
 		name
 		developer

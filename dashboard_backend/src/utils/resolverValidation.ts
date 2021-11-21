@@ -1,10 +1,9 @@
-import { gameInput } from '../resolvers/game'
-import { userInput } from '../resolvers/user'
+import { UserInputType, GameInputType } from './typegqlstuff'
 
 const emailReg =
 	/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
 
-export function validateRegisterForm(params: userInput) {
+export function validateRegisterForm(params: UserInputType) {
 	const emailParts = params.email.split('@')
 
 	if (!params.name) {
@@ -46,6 +45,15 @@ export function validateRegisterForm(params: userInput) {
 		]
 	}
 
+	if (params.password !== params.confirmPassword) {
+		return [
+			{
+				field: 'confirmPassword',
+				message: 'passwords must match',
+			},
+		]
+	}
+
 	if (params.country === 'Wonderland') {
 		return [
 			{
@@ -64,35 +72,7 @@ export function validateRegisterForm(params: userInput) {
 	return null
 }
 
-export function validateLogin(params: userInput) {
-	const emailParts = params.email.split('@')
-	if (!emailReg.test(params.email) || emailParts[0].length > 64) {
-		return [
-			{
-				field: 'email',
-				message: 'please insert a valid email',
-			},
-		]
-	}
-	if (!params.password) {
-		return [
-			{
-				field: 'password',
-				message: 'please insert a valid password',
-			},
-		]
-	} else if (params.password.length < 8) {
-		return [
-			{
-				field: 'password',
-				message: 'your password is too short',
-			},
-		]
-	}
-	return null
-}
-
-export function validateGameForm(params: gameInput) {
+export function validateGameForm(params: GameInputType) {
 	if (!params.name) {
 		return [
 			{

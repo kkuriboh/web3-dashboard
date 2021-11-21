@@ -49,14 +49,4 @@ export class UserScalarWhereWithAggregatesInput {
     nullable: true
   })
   country?: StringWithAggregatesFilter | undefined;
-
-  @TypeGraphQL.Field(_type => DateTimeWithAggregatesFilter, {
-    nullable: true
-  })
-  createdAt?: DateTimeWithAggregatesFilter | undefined;
-
-  @TypeGraphQL.Field(_type => DateTimeWithAggregatesFilter, {
-    nullable: true
-  })
-  updatedAt?: DateTimeWithAggregatesFilter | undefined;
 }

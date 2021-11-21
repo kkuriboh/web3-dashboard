@@ -26,14 +26,4 @@ export class UserCreateWithoutPostedGamesInput {
     nullable: false
   })
   country!: string;
-
-  @TypeGraphQL.Field(_type => Date, {
-    nullable: true
-  })
-  createdAt?: Date | undefined;
-
-  @TypeGraphQL.Field(_type => Date, {
-    nullable: true
-  })
-  updatedAt?: Date | undefined;
 }

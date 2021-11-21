@@ -28,16 +28,6 @@ export class UserCreateInput {
   })
   country!: string;
 
-  @TypeGraphQL.Field(_type => Date, {
-    nullable: true
-  })
-  createdAt?: Date | undefined;
-
-  @TypeGraphQL.Field(_type => Date, {
-    nullable: true
-  })
-  updatedAt?: Date | undefined;
-
   @TypeGraphQL.Field(_type => GameCreateNestedManyWithoutOPInput, {
     nullable: true
   })

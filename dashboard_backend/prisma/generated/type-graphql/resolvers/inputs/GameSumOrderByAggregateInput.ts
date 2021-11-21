@@ -17,9 +17,4 @@ export class GameSumOrderByAggregateInput {
     nullable: true
   })
   price?: "asc" | "desc" | undefined;
-
-  @TypeGraphQL.Field(_type => SortOrder, {
-    nullable: true
-  })
-  OPId?: "asc" | "desc" | undefined;
 }

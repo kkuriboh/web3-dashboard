@@ -7,13 +7,13 @@ import InputField from '../../components/InputField'
 import { withApollo } from '../../utils/withApollo'
 import Wrapper from '../../components/Wrapper'
 import Header from '../../components/Header'
-import { useAddGameMutation } from '../../generated/graphql'
+import { useCreateGameMutation } from '../../generated/graphql'
 import { getUser } from '../../utils/auth'
 import NotAuthenticated from '../../components/notAuthenticated'
 
 function AddGame() {
 	const router = useRouter()
-	const [addGame] = useAddGameMutation()
+	const [addGame] = useCreateGameMutation()
 	const user = getUser()
 
 	return (
@@ -34,13 +34,13 @@ function AddGame() {
 								description: '',
 								developer: '',
 								releaseDate: '',
-								price: '',
+								price: 0,
 							}}
-							onSubmit={async (values, { setErrors }) => {
+							onSubmit={async (values) => {
 								await addGame({
 									variables: {
-										options: {
-											OPId: user.id,
+										data: {
+											OP: { connect: { id: user.id } },
 											...values,
 										},
 									},
@@ -74,13 +74,13 @@ function AddGame() {
 									<InputField
 										label="Release Date"
 										name="releaseDate"
-										placeholder="release date"
 										type="date"
 									/>
 									<InputField
 										label="Price"
 										name="price"
 										placeholder="price"
+										type="number"
 									/>
 									<Button
 										mt={6}
