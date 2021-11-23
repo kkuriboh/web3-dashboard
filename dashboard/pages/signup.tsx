@@ -104,7 +104,7 @@ function SignUp() {
 								<Button type="submit" isLoading={isSubmitting}>
 									SignUp
 								</Button>
-								<Link href="siginin">
+								<Link href="/signin">
 									already have an account?
 								</Link>
 							</Box>
