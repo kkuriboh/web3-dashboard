@@ -8,6 +8,7 @@ export enum GameScalarFieldEnum {
   description = "description",
   price = "price",
   releaseDate = "releaseDate",
+  image = "image",
   OPId = "OPId",
   createdAt = "createdAt",
   updatedAt = "updatedAt"

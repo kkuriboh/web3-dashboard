@@ -35,5 +35,5 @@ export class FindFirstGameArgs {
   @TypeGraphQL.Field(_type => [GameScalarFieldEnum], {
     nullable: true
   })
-  distinct?: Array<"id" | "name" | "developer" | "category" | "description" | "price" | "releaseDate" | "OPId" | "createdAt" | "updatedAt"> | undefined;
+  distinct?: Array<"id" | "name" | "developer" | "category" | "description" | "price" | "releaseDate" | "image" | "OPId" | "createdAt" | "updatedAt"> | undefined;
 }

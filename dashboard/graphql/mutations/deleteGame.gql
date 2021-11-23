@@ -1,0 +1,5 @@
+mutation DeleteGame($where: GameWhereUniqueInput!) {
+	deleteGame(where: $where) {
+		id
+	}
+}

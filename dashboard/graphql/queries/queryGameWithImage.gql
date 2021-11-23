@@ -1,0 +1,16 @@
+query GameWithImage($where: GameWhereUniqueInput!) {
+	game(where: $where) {
+		id
+		name
+		developer
+		category
+		description
+		price
+		releaseDate
+		image
+		OP {
+			id
+			name
+		}
+	}
+}

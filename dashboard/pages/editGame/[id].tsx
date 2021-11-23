@@ -2,14 +2,14 @@ import { Button, Heading } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { Formik, Form } from 'formik'
 
-import NotAuthenticated from '../../../components/notAuthenticated'
-import { getUser } from '../../../utils/auth'
-import { useGetGameFromUrl } from '../../../utils/useGetXFromUrl'
-import { withApollo } from '../../../utils/withApollo'
-import Header from '../../../components/Header'
-import Wrapper from '../../../components/Wrapper'
-import InputField from '../../../components/InputField'
-import { useUpdateGameMutation } from '../../../generated/graphql'
+import NotAuthenticated from '../../components/NotAuthenticated'
+import { getUser } from '../../utils/auth'
+import { useGetGameFromUrl } from '../../utils/useGetXFromUrl'
+import { withApollo } from '../../utils/withApollo'
+import Header from '../../components/Header'
+import Wrapper from '../../components/Wrapper'
+import InputField from '../../components/InputField'
+import { useUpdateGameMutation } from '../../generated/graphql'
 
 function EditGame() {
 	const router = useRouter()
@@ -38,6 +38,7 @@ function EditGame() {
 								developer: '',
 								releaseDate: '',
 								price: 0,
+								image: null,
 							}}
 							onSubmit={async (values) => {
 								const response = await update({
@@ -55,6 +56,7 @@ function EditGame() {
 											releaseDate: {
 												set: values.releaseDate,
 											},
+											image: values.image,
 										},
 										where: {
 											id: game.id,
@@ -62,7 +64,7 @@ function EditGame() {
 									},
 								})
 								if (response.data?.updateGame?.id === game.id) {
-									router.push('/dashboard')
+									router.push('/')
 								} else {
 									return (
 										<Wrapper variant={'small'}>
@@ -115,6 +117,11 @@ function EditGame() {
 										name="price"
 										type="number"
 									/>
+									<InputField
+										label="Image(optional)"
+										name="image"
+										placeholder="https://source.unsplash.com/random/800x600"
+									/>
 									<Button
 										mt={6}
 										type="submit"
@@ -132,4 +139,4 @@ function EditGame() {
 	)
 }
 
-export default withApollo({ ssr: true })(EditGame)
+export default withApollo({ ssr: false })(EditGame)

@@ -38,6 +38,11 @@ export class GameCreateInput {
   })
   releaseDate!: string;
 
+  @TypeGraphQL.Field(_type => String, {
+    nullable: true
+  })
+  image?: string | undefined;
+
   @TypeGraphQL.Field(_type => Date, {
     nullable: true
   })

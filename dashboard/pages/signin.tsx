@@ -13,7 +13,7 @@ import Wrapper from '../components/Wrapper'
 import Header from '../components/Header'
 import { setUser } from '../utils/auth'
 
-function SignUp() {
+function SignIn() {
 	const router = useRouter()
 	const [login] = useLoginMutation()
 
@@ -39,9 +39,14 @@ function SignUp() {
 									toErrorMap(response.data.login.errors)
 								)
 							} else if (response.data?.login.user) {
+								let i = 0
+								response.data.login.user.postedGames.forEach(
+									() => {
+										i += 1
+									}
+								)
 								setUser({
-									_count: { postedGames: 0 },
-									postedGames: [],
+									_count: { postedGames: i },
 									...response.data.login.user,
 								})
 								router.back()
@@ -84,4 +89,4 @@ function SignUp() {
 		</>
 	)
 }
-export default withApollo({ ssr: false })(SignUp)
+export default withApollo({ ssr: false })(SignIn)

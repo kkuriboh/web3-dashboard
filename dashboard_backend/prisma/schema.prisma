@@ -20,6 +20,7 @@ model Game {
   description String
   price       Float
   releaseDate String
+  image       String?
   /// @TypeGraphQL.omit(output: true, input: true)
   OPId        Int
   OP          User     @relation(fields: [OPId], references: [id])

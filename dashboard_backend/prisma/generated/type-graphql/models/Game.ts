@@ -43,6 +43,11 @@ export class Game {
   })
   releaseDate!: string;
 
+  @TypeGraphQL.Field(_type => String, {
+    nullable: true
+  })
+  image?: string | null;
+
   OPId?: number;
 
   OP?: User;

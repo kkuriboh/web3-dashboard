@@ -47,6 +47,11 @@ export class GameGroupBy {
   })
   releaseDate!: string;
 
+  @TypeGraphQL.Field(_type => String, {
+    nullable: true
+  })
+  image!: string | null;
+
   @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
     nullable: false
   })

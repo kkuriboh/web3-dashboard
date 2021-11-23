@@ -6,15 +6,17 @@ import Link from 'next/link'
 import { Box } from '@chakra-ui/layout'
 
 import InputField from '../components/InputField'
-import { useRegisterMutation } from '../generated/graphql'
+import { useRegisterMutation, useLoginMutation } from '../generated/graphql'
 import { toErrorMap } from '../utils/toErrorMap'
 import { withApollo } from '../utils/withApollo'
 import Wrapper from '../components/Wrapper'
 import Header from '../components/Header'
+import { setUser } from '../utils/auth'
 
 function SignUp() {
 	const router = useRouter()
 	const [register] = useRegisterMutation()
+	const [login] = useLoginMutation()
 
 	return (
 		<>
@@ -39,9 +41,27 @@ function SignUp() {
 						})
 						if (response.data?.register.errors) {
 							setErrors(toErrorMap(response.data.register.errors))
-						} else if (response.data?.register.user) {
-							console.log(response)
-							router.back()
+						} else if (response.data?.register.user?.email) {
+							const loginResponse = await login({
+								variables: {
+									email: values.email,
+									password: values.password,
+								},
+							})
+							if (loginResponse.data?.login.errors) {
+							} else if (loginResponse.data?.login.user) {
+								let i = 0
+								loginResponse.data.login.user.postedGames.forEach(
+									() => {
+										i += 1
+									}
+								)
+								setUser({
+									_count: { postedGames: i },
+									...loginResponse.data.login.user,
+								})
+								router.back()
+							}
 						}
 					}}
 				>

@@ -117,6 +117,7 @@ export type Game = {
   description: Scalars['String'];
   developer: Scalars['String'];
   id: Scalars['Int'];
+  image?: Maybe<Scalars['String']>;
   name: Scalars['String'];
   price: Scalars['Float'];
   releaseDate: Scalars['String'];
@@ -144,6 +145,7 @@ export type GameCountAggregate = {
   description: Scalars['Int'];
   developer: Scalars['Int'];
   id: Scalars['Int'];
+  image: Scalars['Int'];
   name: Scalars['Int'];
   price: Scalars['Int'];
   releaseDate: Scalars['Int'];
@@ -156,6 +158,7 @@ export type GameCountOrderByAggregateInput = {
   description?: Maybe<SortOrder>;
   developer?: Maybe<SortOrder>;
   id?: Maybe<SortOrder>;
+  image?: Maybe<SortOrder>;
   name?: Maybe<SortOrder>;
   price?: Maybe<SortOrder>;
   releaseDate?: Maybe<SortOrder>;
@@ -168,6 +171,7 @@ export type GameCreateInput = {
   createdAt?: Maybe<Scalars['DateTime']>;
   description: Scalars['String'];
   developer: Scalars['String'];
+  image?: Maybe<Scalars['String']>;
   name: Scalars['String'];
   price: Scalars['Float'];
   releaseDate: Scalars['String'];
@@ -190,6 +194,7 @@ export type GameCreateWithoutOpInput = {
   createdAt?: Maybe<Scalars['DateTime']>;
   description: Scalars['String'];
   developer: Scalars['String'];
+  image?: Maybe<Scalars['String']>;
   name: Scalars['String'];
   price: Scalars['Float'];
   releaseDate: Scalars['String'];
@@ -209,6 +214,7 @@ export type GameGroupBy = {
   description: Scalars['String'];
   developer: Scalars['String'];
   id: Scalars['Int'];
+  image?: Maybe<Scalars['String']>;
   name: Scalars['String'];
   price: Scalars['Float'];
   releaseDate: Scalars['String'];
@@ -229,6 +235,7 @@ export type GameMaxAggregate = {
   description?: Maybe<Scalars['String']>;
   developer?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['Int']>;
+  image?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
   price?: Maybe<Scalars['Float']>;
   releaseDate?: Maybe<Scalars['String']>;
@@ -241,6 +248,7 @@ export type GameMaxOrderByAggregateInput = {
   description?: Maybe<SortOrder>;
   developer?: Maybe<SortOrder>;
   id?: Maybe<SortOrder>;
+  image?: Maybe<SortOrder>;
   name?: Maybe<SortOrder>;
   price?: Maybe<SortOrder>;
   releaseDate?: Maybe<SortOrder>;
@@ -255,6 +263,7 @@ export type GameMinAggregate = {
   description?: Maybe<Scalars['String']>;
   developer?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['Int']>;
+  image?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
   price?: Maybe<Scalars['Float']>;
   releaseDate?: Maybe<Scalars['String']>;
@@ -267,6 +276,7 @@ export type GameMinOrderByAggregateInput = {
   description?: Maybe<SortOrder>;
   developer?: Maybe<SortOrder>;
   id?: Maybe<SortOrder>;
+  image?: Maybe<SortOrder>;
   name?: Maybe<SortOrder>;
   price?: Maybe<SortOrder>;
   releaseDate?: Maybe<SortOrder>;
@@ -288,6 +298,7 @@ export type GameOrderByWithAggregationInput = {
   description?: Maybe<SortOrder>;
   developer?: Maybe<SortOrder>;
   id?: Maybe<SortOrder>;
+  image?: Maybe<SortOrder>;
   name?: Maybe<SortOrder>;
   price?: Maybe<SortOrder>;
   releaseDate?: Maybe<SortOrder>;
@@ -301,6 +312,7 @@ export type GameOrderByWithRelationInput = {
   description?: Maybe<SortOrder>;
   developer?: Maybe<SortOrder>;
   id?: Maybe<SortOrder>;
+  image?: Maybe<SortOrder>;
   name?: Maybe<SortOrder>;
   price?: Maybe<SortOrder>;
   releaseDate?: Maybe<SortOrder>;
@@ -314,6 +326,7 @@ export enum GameScalarFieldEnum {
   Description = 'description',
   Developer = 'developer',
   Id = 'id',
+  Image = 'image',
   Name = 'name',
   Price = 'price',
   ReleaseDate = 'releaseDate',
@@ -329,6 +342,7 @@ export type GameScalarWhereInput = {
   description?: Maybe<StringFilter>;
   developer?: Maybe<StringFilter>;
   id?: Maybe<IntFilter>;
+  image?: Maybe<StringNullableFilter>;
   name?: Maybe<StringFilter>;
   price?: Maybe<FloatFilter>;
   releaseDate?: Maybe<StringFilter>;
@@ -344,6 +358,7 @@ export type GameScalarWhereWithAggregatesInput = {
   description?: Maybe<StringWithAggregatesFilter>;
   developer?: Maybe<StringWithAggregatesFilter>;
   id?: Maybe<IntWithAggregatesFilter>;
+  image?: Maybe<StringNullableWithAggregatesFilter>;
   name?: Maybe<StringWithAggregatesFilter>;
   price?: Maybe<FloatWithAggregatesFilter>;
   releaseDate?: Maybe<StringWithAggregatesFilter>;
@@ -368,6 +383,7 @@ export type GameUpdateInput = {
   createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   description?: Maybe<StringFieldUpdateOperationsInput>;
   developer?: Maybe<StringFieldUpdateOperationsInput>;
+  image?: Maybe<NullableStringFieldUpdateOperationsInput>;
   name?: Maybe<StringFieldUpdateOperationsInput>;
   price?: Maybe<FloatFieldUpdateOperationsInput>;
   releaseDate?: Maybe<StringFieldUpdateOperationsInput>;
@@ -379,6 +395,7 @@ export type GameUpdateManyMutationInput = {
   createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   description?: Maybe<StringFieldUpdateOperationsInput>;
   developer?: Maybe<StringFieldUpdateOperationsInput>;
+  image?: Maybe<NullableStringFieldUpdateOperationsInput>;
   name?: Maybe<StringFieldUpdateOperationsInput>;
   price?: Maybe<FloatFieldUpdateOperationsInput>;
   releaseDate?: Maybe<StringFieldUpdateOperationsInput>;
@@ -413,6 +430,7 @@ export type GameUpdateWithoutOpInput = {
   createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   description?: Maybe<StringFieldUpdateOperationsInput>;
   developer?: Maybe<StringFieldUpdateOperationsInput>;
+  image?: Maybe<NullableStringFieldUpdateOperationsInput>;
   name?: Maybe<StringFieldUpdateOperationsInput>;
   price?: Maybe<FloatFieldUpdateOperationsInput>;
   releaseDate?: Maybe<StringFieldUpdateOperationsInput>;
@@ -435,6 +453,7 @@ export type GameWhereInput = {
   description?: Maybe<StringFilter>;
   developer?: Maybe<StringFilter>;
   id?: Maybe<IntFilter>;
+  image?: Maybe<StringNullableFilter>;
   name?: Maybe<StringFilter>;
   price?: Maybe<FloatFilter>;
   releaseDate?: Maybe<StringFilter>;
@@ -632,6 +651,17 @@ export type NestedIntFilter = {
   notIn?: Maybe<Array<Scalars['Int']>>;
 };
 
+export type NestedIntNullableFilter = {
+  equals?: Maybe<Scalars['Int']>;
+  gt?: Maybe<Scalars['Int']>;
+  gte?: Maybe<Scalars['Int']>;
+  in?: Maybe<Array<Scalars['Int']>>;
+  lt?: Maybe<Scalars['Int']>;
+  lte?: Maybe<Scalars['Int']>;
+  not?: Maybe<NestedIntNullableFilter>;
+  notIn?: Maybe<Array<Scalars['Int']>>;
+};
+
 export type NestedIntWithAggregatesFilter = {
   _avg?: Maybe<NestedFloatFilter>;
   _count?: Maybe<NestedIntFilter>;
@@ -662,6 +692,37 @@ export type NestedStringFilter = {
   startsWith?: Maybe<Scalars['String']>;
 };
 
+export type NestedStringNullableFilter = {
+  contains?: Maybe<Scalars['String']>;
+  endsWith?: Maybe<Scalars['String']>;
+  equals?: Maybe<Scalars['String']>;
+  gt?: Maybe<Scalars['String']>;
+  gte?: Maybe<Scalars['String']>;
+  in?: Maybe<Array<Scalars['String']>>;
+  lt?: Maybe<Scalars['String']>;
+  lte?: Maybe<Scalars['String']>;
+  not?: Maybe<NestedStringNullableFilter>;
+  notIn?: Maybe<Array<Scalars['String']>>;
+  startsWith?: Maybe<Scalars['String']>;
+};
+
+export type NestedStringNullableWithAggregatesFilter = {
+  _count?: Maybe<NestedIntNullableFilter>;
+  _max?: Maybe<NestedStringNullableFilter>;
+  _min?: Maybe<NestedStringNullableFilter>;
+  contains?: Maybe<Scalars['String']>;
+  endsWith?: Maybe<Scalars['String']>;
+  equals?: Maybe<Scalars['String']>;
+  gt?: Maybe<Scalars['String']>;
+  gte?: Maybe<Scalars['String']>;
+  in?: Maybe<Array<Scalars['String']>>;
+  lt?: Maybe<Scalars['String']>;
+  lte?: Maybe<Scalars['String']>;
+  not?: Maybe<NestedStringNullableWithAggregatesFilter>;
+  notIn?: Maybe<Array<Scalars['String']>>;
+  startsWith?: Maybe<Scalars['String']>;
+};
+
 export type NestedStringWithAggregatesFilter = {
   _count?: Maybe<NestedIntFilter>;
   _max?: Maybe<NestedStringFilter>;
@@ -677,6 +738,10 @@ export type NestedStringWithAggregatesFilter = {
   not?: Maybe<NestedStringWithAggregatesFilter>;
   notIn?: Maybe<Array<Scalars['String']>>;
   startsWith?: Maybe<Scalars['String']>;
+};
+
+export type NullableStringFieldUpdateOperationsInput = {
+  set?: Maybe<Scalars['String']>;
 };
 
 export type Query = {
@@ -800,6 +865,37 @@ export type StringFilter = {
   lt?: Maybe<Scalars['String']>;
   lte?: Maybe<Scalars['String']>;
   not?: Maybe<NestedStringFilter>;
+  notIn?: Maybe<Array<Scalars['String']>>;
+  startsWith?: Maybe<Scalars['String']>;
+};
+
+export type StringNullableFilter = {
+  contains?: Maybe<Scalars['String']>;
+  endsWith?: Maybe<Scalars['String']>;
+  equals?: Maybe<Scalars['String']>;
+  gt?: Maybe<Scalars['String']>;
+  gte?: Maybe<Scalars['String']>;
+  in?: Maybe<Array<Scalars['String']>>;
+  lt?: Maybe<Scalars['String']>;
+  lte?: Maybe<Scalars['String']>;
+  not?: Maybe<NestedStringNullableFilter>;
+  notIn?: Maybe<Array<Scalars['String']>>;
+  startsWith?: Maybe<Scalars['String']>;
+};
+
+export type StringNullableWithAggregatesFilter = {
+  _count?: Maybe<NestedIntNullableFilter>;
+  _max?: Maybe<NestedStringNullableFilter>;
+  _min?: Maybe<NestedStringNullableFilter>;
+  contains?: Maybe<Scalars['String']>;
+  endsWith?: Maybe<Scalars['String']>;
+  equals?: Maybe<Scalars['String']>;
+  gt?: Maybe<Scalars['String']>;
+  gte?: Maybe<Scalars['String']>;
+  in?: Maybe<Array<Scalars['String']>>;
+  lt?: Maybe<Scalars['String']>;
+  lte?: Maybe<Scalars['String']>;
+  not?: Maybe<NestedStringNullableWithAggregatesFilter>;
   notIn?: Maybe<Array<Scalars['String']>>;
   startsWith?: Maybe<Scalars['String']>;
 };
@@ -1085,13 +1181,20 @@ export type CreateGameMutationVariables = Exact<{
 
 export type CreateGameMutation = { __typename?: 'Mutation', createGame: { __typename?: 'Game', id: number } };
 
+export type DeleteGameMutationVariables = Exact<{
+  where: GameWhereUniqueInput;
+}>;
+
+
+export type DeleteGameMutation = { __typename?: 'Mutation', deleteGame?: { __typename?: 'Game', id: number } | null | undefined };
+
 export type LoginMutationVariables = Exact<{
   password: Scalars['String'];
   email: Scalars['String'];
 }>;
 
 
-export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null | undefined, user?: { __typename?: 'User', id: number, name: string, email: string, country: string } | null | undefined } };
+export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null | undefined, user?: { __typename?: 'User', id: number, name: string, email: string, country: string, postedGames: Array<{ __typename?: 'Game', id: number, name: string }> } | null | undefined } };
 
 export type RegisterMutationVariables = Exact<{
   options: UserInputType;
@@ -1114,6 +1217,13 @@ export type GameQueryVariables = Exact<{
 
 
 export type GameQuery = { __typename?: 'Query', game?: { __typename?: 'Game', id: number, name: string, developer: string, category: string, description: string, price: number, releaseDate: string, OP: { __typename?: 'User', id: number, name: string } } | null | undefined };
+
+export type GameWithImageQueryVariables = Exact<{
+  where: GameWhereUniqueInput;
+}>;
+
+
+export type GameWithImageQuery = { __typename?: 'Query', game?: { __typename?: 'Game', id: number, name: string, developer: string, category: string, description: string, price: number, releaseDate: string, image?: string | null | undefined, OP: { __typename?: 'User', id: number, name: string } } | null | undefined };
 
 export type GetUserQueryVariables = Exact<{
   where: UserWhereUniqueInput;
@@ -1163,6 +1273,39 @@ export function useCreateGameMutation(baseOptions?: Apollo.MutationHookOptions<C
 export type CreateGameMutationHookResult = ReturnType<typeof useCreateGameMutation>;
 export type CreateGameMutationResult = Apollo.MutationResult<CreateGameMutation>;
 export type CreateGameMutationOptions = Apollo.BaseMutationOptions<CreateGameMutation, CreateGameMutationVariables>;
+export const DeleteGameDocument = gql`
+    mutation DeleteGame($where: GameWhereUniqueInput!) {
+  deleteGame(where: $where) {
+    id
+  }
+}
+    `;
+export type DeleteGameMutationFn = Apollo.MutationFunction<DeleteGameMutation, DeleteGameMutationVariables>;
+
+/**
+ * __useDeleteGameMutation__
+ *
+ * To run a mutation, you first call `useDeleteGameMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteGameMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteGameMutation, { data, loading, error }] = useDeleteGameMutation({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useDeleteGameMutation(baseOptions?: Apollo.MutationHookOptions<DeleteGameMutation, DeleteGameMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteGameMutation, DeleteGameMutationVariables>(DeleteGameDocument, options);
+      }
+export type DeleteGameMutationHookResult = ReturnType<typeof useDeleteGameMutation>;
+export type DeleteGameMutationResult = Apollo.MutationResult<DeleteGameMutation>;
+export type DeleteGameMutationOptions = Apollo.BaseMutationOptions<DeleteGameMutation, DeleteGameMutationVariables>;
 export const LoginDocument = gql`
     mutation Login($password: String!, $email: String!) {
   login(password: $password, email: $email) {
@@ -1175,6 +1318,10 @@ export const LoginDocument = gql`
       name
       email
       country
+      postedGames {
+        id
+        name
+      }
     }
   }
 }
@@ -1324,6 +1471,52 @@ export function useGameLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GameQ
 export type GameQueryHookResult = ReturnType<typeof useGameQuery>;
 export type GameLazyQueryHookResult = ReturnType<typeof useGameLazyQuery>;
 export type GameQueryResult = Apollo.QueryResult<GameQuery, GameQueryVariables>;
+export const GameWithImageDocument = gql`
+    query GameWithImage($where: GameWhereUniqueInput!) {
+  game(where: $where) {
+    id
+    name
+    developer
+    category
+    description
+    price
+    releaseDate
+    image
+    OP {
+      id
+      name
+    }
+  }
+}
+    `;
+
+/**
+ * __useGameWithImageQuery__
+ *
+ * To run a query within a React component, call `useGameWithImageQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGameWithImageQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGameWithImageQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useGameWithImageQuery(baseOptions: Apollo.QueryHookOptions<GameWithImageQuery, GameWithImageQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GameWithImageQuery, GameWithImageQueryVariables>(GameWithImageDocument, options);
+      }
+export function useGameWithImageLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GameWithImageQuery, GameWithImageQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GameWithImageQuery, GameWithImageQueryVariables>(GameWithImageDocument, options);
+        }
+export type GameWithImageQueryHookResult = ReturnType<typeof useGameWithImageQuery>;
+export type GameWithImageLazyQueryHookResult = ReturnType<typeof useGameWithImageLazyQuery>;
+export type GameWithImageQueryResult = Apollo.QueryResult<GameWithImageQuery, GameWithImageQueryVariables>;
 export const GetUserDocument = gql`
     query getUser($where: UserWhereUniqueInput!) {
   user(where: $where) {

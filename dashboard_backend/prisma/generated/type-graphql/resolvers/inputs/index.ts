@@ -36,11 +36,17 @@ export { NestedDateTimeWithAggregatesFilter } from "./NestedDateTimeWithAggregat
 export { NestedFloatFilter } from "./NestedFloatFilter";
 export { NestedFloatWithAggregatesFilter } from "./NestedFloatWithAggregatesFilter";
 export { NestedIntFilter } from "./NestedIntFilter";
+export { NestedIntNullableFilter } from "./NestedIntNullableFilter";
 export { NestedIntWithAggregatesFilter } from "./NestedIntWithAggregatesFilter";
 export { NestedStringFilter } from "./NestedStringFilter";
+export { NestedStringNullableFilter } from "./NestedStringNullableFilter";
+export { NestedStringNullableWithAggregatesFilter } from "./NestedStringNullableWithAggregatesFilter";
 export { NestedStringWithAggregatesFilter } from "./NestedStringWithAggregatesFilter";
+export { NullableStringFieldUpdateOperationsInput } from "./NullableStringFieldUpdateOperationsInput";
 export { StringFieldUpdateOperationsInput } from "./StringFieldUpdateOperationsInput";
 export { StringFilter } from "./StringFilter";
+export { StringNullableFilter } from "./StringNullableFilter";
+export { StringNullableWithAggregatesFilter } from "./StringNullableWithAggregatesFilter";
 export { StringWithAggregatesFilter } from "./StringWithAggregatesFilter";
 export { UserAvgOrderByAggregateInput } from "./UserAvgOrderByAggregateInput";
 export { UserCountOrderByAggregateInput } from "./UserCountOrderByAggregateInput";

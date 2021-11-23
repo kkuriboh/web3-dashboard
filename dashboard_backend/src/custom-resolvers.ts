@@ -1,4 +1,4 @@
-import { User, UserCreateInput } from '../prisma/generated/type-graphql'
+import { User } from '../prisma/generated/type-graphql'
 import {
 	Arg,
 	Ctx,
@@ -83,7 +83,7 @@ export default class CustomUserResolvers {
 				data: {
 					name: options.name,
 					email: options.email,
-					password: options.password,
+					password: options.password!,
 					country: options.country,
 				},
 			})

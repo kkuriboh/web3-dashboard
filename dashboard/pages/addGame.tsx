@@ -3,13 +3,13 @@ import { Formik, Form } from 'formik'
 import { Button } from '@chakra-ui/react'
 import { useRouter } from 'next/dist/client/router'
 
-import InputField from '../../components/InputField'
-import { withApollo } from '../../utils/withApollo'
-import Wrapper from '../../components/Wrapper'
-import Header from '../../components/Header'
-import { useCreateGameMutation } from '../../generated/graphql'
-import { getUser } from '../../utils/auth'
-import NotAuthenticated from '../../components/notAuthenticated'
+import InputField from '../components/InputField'
+import { withApollo } from '../utils/withApollo'
+import Wrapper from '../components/Wrapper'
+import Header from '../components/Header'
+import { useCreateGameMutation } from '../generated/graphql'
+import { getUser } from '../utils/auth'
+import NotAuthenticated from '../components/NotAuthenticated'
 
 function AddGame() {
 	const router = useRouter()
@@ -35,6 +35,7 @@ function AddGame() {
 								developer: '',
 								releaseDate: '',
 								price: 0,
+								image: null,
 							}}
 							onSubmit={async (values) => {
 								await addGame({
@@ -45,7 +46,7 @@ function AddGame() {
 										},
 									},
 								})
-								router.push('/dashboard')
+								router.push('/')
 							}}
 						>
 							{({ isSubmitting }) => (
@@ -81,6 +82,11 @@ function AddGame() {
 										name="price"
 										placeholder="price"
 										type="number"
+									/>
+									<InputField
+										label="Image(optional)"
+										name="image"
+										placeholder="https://source.unsplash.com/random/800x600"
 									/>
 									<Button
 										mt={6}

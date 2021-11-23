@@ -25,7 +25,7 @@ export default function Header() {
 					</>
 				) : (
 					<li onClick={() => logout()}>
-						<Link href="/">Logout</Link>
+						<Link href="/signin">Logout</Link>
 					</li>
 				)}
 			</ul>

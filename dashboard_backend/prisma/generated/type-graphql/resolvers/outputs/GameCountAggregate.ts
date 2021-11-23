@@ -45,6 +45,11 @@ export class GameCountAggregate {
   @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
     nullable: false
   })
+  image!: number;
+
+  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+    nullable: false
+  })
   OPId!: number;
 
   @TypeGraphQL.Field(_type => TypeGraphQL.Int, {

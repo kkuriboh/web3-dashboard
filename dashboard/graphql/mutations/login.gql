@@ -9,6 +9,10 @@ mutation Login($password: String!, $email: String!) {
 			name
 			email
 			country
+			postedGames {
+				id
+				name
+			}
 		}
 	}
 }
