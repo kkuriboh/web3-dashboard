@@ -3,16 +3,13 @@ import { User } from '../generated/graphql'
 type UserType = User & {
 	isAuthenticated: boolean
 }
-type PostedGamesType = {
-	id: number
-	name: string
-}
+
 let user: UserType = {
-	isAuthenticated: true,
-	id: 4,
-	email: 'aaa',
-	name: 'Augusto',
-	country: 'BR',
+	isAuthenticated: false,
+	id: 0,
+	email: '',
+	name: '',
+	country: '',
 	_count: { postedGames: 0 },
 	postedGames: [],
 }

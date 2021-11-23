@@ -11,10 +11,15 @@ import { toErrorMap } from '../utils/toErrorMap'
 import { withApollo } from '../utils/withApollo'
 import Wrapper from '../components/Wrapper'
 import Header from '../components/Header'
-import { setUser } from '../utils/auth'
+import { getUser, setUser } from '../utils/auth'
+import isServer from '../utils/isServer'
 
 function SignIn() {
 	const router = useRouter()
+	const user = getUser()
+	if (user.isAuthenticated && isServer()) {
+		router.push('/')
+	}
 	const [login] = useLoginMutation()
 
 	return (

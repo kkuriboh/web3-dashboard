@@ -5,11 +5,13 @@ import { withApollo } from '../utils/withApollo'
 import { getUser } from '../utils/auth'
 import Header from '../components/Header'
 import Content from '../components/Content'
+import isServer from '../utils/isServer'
 
 function Dashboard() {
 	const router = useRouter()
 	const user = getUser()
-	if (!user.isAuthenticated) {
+
+	if (!user.isAuthenticated && !isServer()) {
 		router.push('/signin')
 	}
 
